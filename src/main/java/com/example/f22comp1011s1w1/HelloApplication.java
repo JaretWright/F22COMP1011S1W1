@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class HelloApplication extends Application {
     @Override
@@ -18,6 +19,12 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        Artist artist1 = new Artist("Alfred","Jackson", LocalDate.of(1987,10,11));
+        Artist artist2 = new Artist("Jack","Johnson", LocalDate.of(1997,01,8));
+
+        System.out.println("artist 1: "+artist1);
+        System.out.println("artist 2: "+artist2);
+
         launch();
     }
 }
