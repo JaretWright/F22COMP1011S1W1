@@ -1,5 +1,6 @@
 package com.example.f22comp1011s1w1;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -65,16 +66,33 @@ public class Song {
         return length;
     }
 
+    /**
+     * The length of the song is recorded in seconds.
+     * @param length
+     */
     public void setLength(int length) {
-        this.length = length;
+        if (length>0 && length <= 47000)
+            this.length = length;
+        else
+            throw new IllegalArgumentException("song length must be in the " +
+                    "range of 0 to 47,000");
     }
 
     public int getReleaseYear() {
         return releaseYear;
     }
 
+    /**
+     * The release year must be in the range of 1900 to the current
+     * year
+     * @param releaseYear
+     */
     public void setReleaseYear(int releaseYear) {
-        this.releaseYear = releaseYear;
+        if (releaseYear>=1900 && releaseYear <= LocalDate.now().getYear())
+            this.releaseYear = releaseYear;
+        else
+            throw new IllegalArgumentException("release year must be in the " +
+                    "range of 1900 to " + LocalDate.now().getYear());
     }
 
     public Artist getArtist() {
