@@ -5,10 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -36,7 +33,13 @@ public class CreateSongController implements Initializable {
 
     @FXML
     void createSong(ActionEvent event) {
-
+        //when the submit button is pushed, create a Song object
+        Song newSong = new Song(nameTextField.getText(),
+                                genreComboBox.getValue(),
+                                Integer.parseInt(lengthTextField.getText()),
+                                yearSpinner.getValue(),
+                                artistComboBox.getValue());
+        resultLabel.setText(newSong.toString());
     }
 
     @Override
@@ -53,11 +56,31 @@ public class CreateSongController implements Initializable {
         //This is a lambda expression
         lengthTextField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try{
-                Integer.parseInt(newValue);
+                if (!newValue.isBlank())
+                    Integer.parseInt(newValue);
             }catch (Exception e)
             {
                 lengthTextField.setText(oldValue);
             }
         });
+
+        //configure the Spinner
+        SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.
+                                            IntegerSpinnerValueFactory(1900,LocalDate.now().getYear(),
+                                                                        2000);
+        yearSpinner.setValueFactory(spinnerValueFactory);
+        yearSpinner.setEditable(true);
+        TextField spinnerTextField = yearSpinner.getEditor();
+        spinnerTextField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try{
+                if (!newValue.isBlank())
+                    Integer.parseInt(newValue);
+            }catch (Exception e)
+            {
+                spinnerTextField.setText(oldValue);
+            }
+        });
+
+        resultLabel.setText("");
     }
 }
