@@ -102,4 +102,9 @@ public class Song {
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
+
+    public String toString()
+    {
+        return String.format("%s - %s ", artist, name);
+    }
 }
